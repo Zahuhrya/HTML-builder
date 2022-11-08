@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var rLine = require('readline')
-var cmd = rLine.createInterface(process.stdin,process.stdout)
+var cmd = rLine.createInterface(process.stdin,process.stdout,process.exit)
 fs.writeFile(path.join(__dirname,'text.txt'),'','utf-8',(err,data)=>{
 })  
 const func = ()=>{
@@ -10,9 +10,11 @@ const func = ()=>{
             fs.appendFile(path.join(__dirname,'text.txt'),input,(err,data)=>{})
             func()  
         }else{
-            console.log('До свидания')
-            return cmd.close() 
+            return cmd.close()
         }
+    })
+    process.on('exit',()=>{
+        console.log('\nДо свидания')
     })
 }
 func()

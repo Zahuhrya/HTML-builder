@@ -8,6 +8,20 @@ var res
 
 fs.mkdir(path.join(__dirname,'project-dist'),(err,data)=>{})
 fs.mkdir(path.join(__dirname,'project-dist','assets'),(err,data)=>{})
+fs.readdir(path.join(__dirname,'project-dist'),(err,data)=>{
+    data.forEach(file=>{
+        fs.unlink(path.join(__dirname,'files-copy',file),(err,data)=>{}) 
+    })
+})
+fs.readdir(path.join(__dirname,'project-dist','assets'),(err,data)=>{
+    data.forEach(file=>{
+        fs.readdir(path.join(__dirname,'project-dist','assets',file),(err,data)=>{
+            data.forEach(f=>{
+                fs.unlink(path.join(__dirname,'project-dist','assets',file,f),(err,data)=>{}) 
+            })
+        })
+    })
+})
 fs.writeFile(path.join(__dirname,'project-dist','index.html'),'','utf-8',(err,data)=>{})
 fs.writeFile(path.join(__dirname,'project-dist','style.css'),'','utf-8',(err,data)=>{})
 
